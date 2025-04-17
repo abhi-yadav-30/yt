@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import watchHistory from "../assets/noData.jpg";
 import watchLater from "../assets/watchLater.jpg";
 import noLikedVideos from "../assets/noLikedVideos.png";
-import noPlaylistVIdeos from "../assets/noPlaylistVIdeos.jpg";
+import noPlaylistVIdeos from "../assets/noPlaylistVideos.jpg";
 import {
   faCog,
   faPauseCircle,
@@ -181,11 +181,13 @@ const WatchComponent = ({ title, keyWord, msg1, msg2 }) => {
               />
             )}
             {keyWord === "playlists" && (
-              <img
-                src={noPlaylistVIdeos}
-                alt="No Liked Videos"
-                className="w-[45%]"
-              />
+              <>
+                <img
+                  src={noPlaylistVIdeos}
+                  alt="No Liked Videos"
+                  className="w-[45%]"
+                />
+              </>
             )}
             <div className="flex flex-col items-center justify-center text-center text-gray-600 py-12">
               <div className="text-2xl font-semibold mb-2">
