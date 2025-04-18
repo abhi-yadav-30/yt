@@ -3,9 +3,13 @@ import { formatNumber, getTimeAgo, handleShare } from "../utils/functions";
 import { YOUTUBE_CHANNEL_IMG_API } from "../utils/constants/apis";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTowerBroadcast } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisVertical,
+  faShare,
+  faTowerBroadcast,
+} from "@fortawesome/free-solid-svg-icons";
 
-const ResultCard = ({ result , isHistory=false }) => {
+const ResultCard = ({ result, isHistory = false }) => {
   if (!result) return <div>Loading...</div>;
   // const [channelImg, setChannelImg] = useState(null);
 
@@ -57,11 +61,11 @@ const ResultCard = ({ result , isHistory=false }) => {
 
   return (
     <div
-      className={`grid grid-cols-16    mb-4 ${
-        isMenuOpen ? "mx-5 ml-10" : "mx-34"
+      className={`grid grid-cols-1 w-full sm:w-auto sm:grid-cols-16 mx-0 mb-4 ${
+        isMenuOpen ? "lg:mx-5 ml-10 md:mx-2" : "lg:mx-34 md:mx-10"
       }`}
     >
-      <div className=" col-span-6 mr-4 aspect-video">
+      <div className="col-span-1 w-full sm:w-auto sm:col-span-8 2xl:col-span-6 lg:col-span-9 mr-4 aspect-video">
         <img
           src={
             thumbnails?.maxres?.url ||
@@ -70,74 +74,79 @@ const ResultCard = ({ result , isHistory=false }) => {
             thumbnails?.default?.url
           }
           alt="thumbnail"
-          className="w-full h-44 md:h-52 lg:h-60 object-cover rounded-xl hover:rounded-none transition-all duration-300"
+          className="w-full  aspect-video lg:h-60 object-cover sm:rounded-xl hover:rounded-none transition-all duration-300"
         />
       </div>
-      <div className="col-span-9">
-        <div className="text-xl font-medium mb-2">{title}</div>
-        <div className="text-md font-semibold mb-2">
-          {formatNumber(statistics?.viewCount)} views •{" "}
-          {getTimeAgo(publishedAt)}
-        </div>
-        <div className="flex mb-2">
-          {channelImg && (
-            <>
-              {/* {console.log(channelImg)} */}
-              <img
-                src={channelImg}
-                alt="channel Img"
-                className="w-8 rounded-full mr-4"
-              />
-            </>
+      <div className="col-span-1 w-full sm:w-auto sm:col-span-8 2xl:col-span-10 lg:col-span-7 flex">
+        <div className="pt-1 px-2 sm:p-0">
+          <div className="lg:text-xl  font-medium mb-2 max-h-11  sm:h-14 lg:h-15 overflow-hidden break-all line-clamp-2 w-full">
+            {title}
+          </div>
+          <div className=" text-sm md:text-sm lg:text-md font-semibold mb-2">
+            {formatNumber(statistics?.viewCount)} views •{" "}
+            {getTimeAgo(publishedAt)}
+          </div>
+
+          {description && description.length > 0 && (
+            <div className="h-6 overflow-hidden">{description}</div>
           )}
 
-          {channelTitle}
-        </div>
-        {description && description.length > 0 && (
-          <div className="h-6 overflow-hidden">{description}</div>
-        )}
+          <div className="flex  flex-row sm:flex-col justify-between">
+            <div className="flex mb-2 ">
+              {channelImg && (
+                <>
+                  {/* {console.log(channelImg)} */}
+                  <img
+                    src={channelImg}
+                    alt="channel Img"
+                    className=" w-8 md:w-6 lg:w-8 rounded-full mr-4"
+                  />
+                </>
+              )}
 
-        {result?.liveBroadcastContent ? (
-          result?.liveBroadcastContent === "live" && (
-            <div className="bg-red-500 py-1 text-white rounded-lg mt-2 w-20 flex justify-center items-center">
-              <FontAwesomeIcon icon={faTowerBroadcast} className="mr-1" size="sm" /> 
-              LIVE
+              {channelTitle}
             </div>
-          )
-        ) : (
-          <></>
-        )}
-      </div>
 
-      <div
-        className="z-40 cursor-pointer min-w-10 rounded-full hover:bg-gray-300  h-10 flex justify-center items-center ml-auto col-span-1"
-        onClick={(e) => {
-          e.stopPropagation(); // ensure it stops before reaching Link
-          e.preventDefault(); // also prevent the default anchor behavior
-          handleInfoClick();
-        }}
-      >
-        {show && (
-          <div
-            className="absolute flex px-8 py-2  bg-gray-300 mr-40 justify-center rounded-md hover:bg-gray-400"
-            onClick={() => {
-              handleShare(title, id);
-            }}
-          >
-            <img
-              src="https://pngimg.com/d/share_PNG27.png"
-              alt="share"
-              className="w-5 mr-2"
-            />
-            <span className="font-medium">Share</span>
+            {result?.liveBroadcastContent ? (
+              result?.liveBroadcastContent === "live" && (
+                <div className="bg-red-500 py-1 text-white rounded-lg mt-2 lg:w-20 w-12  flex justify-center items-center">
+                  <FontAwesomeIcon
+                    icon={faTowerBroadcast}
+                    className="mr-1"
+                    size="sm"
+                  />
+                  <span className=" hidden lg:block">LIVE</span>
+                </div>
+              )
+            ) : (
+              <></>
+            )}
           </div>
-        )}
+        </div>
 
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/10025/10025520.png"
-          alt="info"
-          className="w-7 h-7 cursor-pointer z-40"
-        />
+        <div
+          className=" z-40 cursor-pointer min-w-10 rounded-full hover:bg-gray-300  h-10 flex justify-center items-center ml-auto "
+          onClick={(e) => {
+            e.stopPropagation(); // ensure it stops before reaching Link
+            e.preventDefault(); // also prevent the default anchor behavior
+            handleInfoClick();
+          }}
+        >
+          {show && (
+            <div
+              className="absolute flex px-8 py-2  bg-gray-300 mr-40 justify-center items-center rounded-md hover:bg-gray-400"
+              onClick={() => {
+                handleShare(title, id);
+              }}
+            >
+              <FontAwesomeIcon icon={faShare} size="lg" />
+
+              <span className="font-medium ml-3">Share</span>
+            </div>
+          )}
+
+          <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
+        </div>
       </div>
     </div>
   );

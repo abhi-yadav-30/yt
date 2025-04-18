@@ -43,7 +43,7 @@ const Results = () => {
 
   return !isLoading ? (
     searchResults.length !== 0 ? (
-      <div className="pt-10 overflow-y-auto h-full ">
+      <div className="pr-0 sm:pt-10  overflow-y-auto h-full">
         {searchResults.map((result) => (
           <Link to={"/watch?v=" + result.id} key={result.id}>
             <ResultCard result={result} />
@@ -72,23 +72,29 @@ const Results = () => {
     )
   ) : (
     <>
-      <div className="pt-10 overflow-y-auto h-full">
+      <div className="pt-10 overflow-y-auto">
         {[...Array(3)].map((_, i) => (
-          <div className="" key={i}>
-            <div className="grid grid-cols-16 mb-4 animate-pulse mx-10">
-              <div className="col-span-7 mr-10">
-                <div className="w-125 h-70 bg-gray-300 rounded-xl" />
+          <div className="grid grid-cols-1 w-full sm:w-auto sm:grid-cols-16 mx-0 mb-4 animate-pulse">
+            {/* Thumbnail Placeholder */}
+            <div className="col-span-1 w-full sm:w-auto sm:col-span-8 2xl:col-span-6 lg:col-span-9 mr-4 aspect-video bg-gray-300 sm:rounded-xl" />
+
+            {/* Content Placeholder */}
+            <div className="col-span-1 w-full sm:w-auto sm:col-span-8 2xl:col-span-10 lg:col-span-7 flex flex-col justify-between">
+              <div className="pt-1 px-2 sm:p-0 flex-1">
+                {/* Title Placeholder */}
+                <div className="h-6 bg-gray-300 rounded mb-2 w-3/4" />
+                {/* Views and Time Placeholder */}
+                <div className="h-4 bg-gray-300 rounded mb-2 w-1/2" />
+                {/* Description Placeholder */}
+                <div className="h-4 bg-gray-300 rounded mb-2 w-full" />
+                {/* Channel Info Placeholder */}
+                <div className="flex items-center mt-2">
+                  <div className="w-8 h-8 bg-gray-300 rounded-full mr-4" />
+                  <div className="h-4 bg-gray-300 rounded w-1/3" />
+                </div>
               </div>
 
-              <div className="col-span-9">
-                <div className="h-6 bg-gray-300 rounded mb-2 w-3/4" />
-                <div className="h-4 bg-gray-300 rounded mb-2 w-1/2" />
-                <div className="flex items-center mb-2">
-                  <div className="w-8 h-8 bg-gray-300 rounded-full mr-4" />
-                  <div className="h-4 bg-gray-300 rounded w-1/4" />
-                </div>
-                <div className="h-4 bg-gray-300 rounded w-full" />
-              </div>
+            
             </div>
           </div>
         ))}
