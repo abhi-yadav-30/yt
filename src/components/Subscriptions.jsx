@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChannelCard from "./ChannelCard";
 import { YOUTUBE_CHANNELS_API } from "../utils/constants/apis";
 import noSub from "../assets/noSubscriptions.jpg"
+import { useSelector } from "react-redux";
 
 const Subscriptions = () => {
   const [channelsData, setChannelsData] = useState(null);
@@ -40,10 +41,12 @@ const Subscriptions = () => {
   //     return Intl.NumberFormat("en-US", { notation: "compact" }).format(num);
   //   };
 
+  const isMenuOpen = useSelector((store)=>store.app.isMenuOpen)
+
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (!channelsData)
     return (
-      <div className="w-full mt-[2%]">
+      <div className=" mt-[2%]">
         <center>
           <img src={noSub} alt="no Subscription" className="w-[45%]" />
           <div className="flex flex-col items-center justify-center text-center text-gray-600 mt-3">
@@ -59,7 +62,7 @@ const Subscriptions = () => {
     );
 
   return (
-    <div className=" overflow-y-auto h-full pt-6 w-full flex flex-wrap px-6 ml-16 pb-[5%]">
+    <div className={`overflow-y-auto h-full pt-6  flex flex-wrap px-6  pb-8 justify-around`}>
       {channelsData.map((channel) => (
         <ChannelCard
           key={channel.id}

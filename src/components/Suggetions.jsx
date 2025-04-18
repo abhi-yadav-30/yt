@@ -7,7 +7,7 @@ const Suggetions = ({ suggestions, handleSelectedResult }) => {
   //   console.log("Suggetion : ", suggestions);
   if (suggestions.length == 0) return;
   return (
-    <div className="py-4 rounded-xl bg-white   shadow-[1px_0_7px_rgba(0,0,0,0.1),_-1px_0_7px_rgba(0,0,0,0.1),0_2px_7px_rgba(0,0,0,0.1)] z-100">
+    <div className="py-4 sm:rounded-xl bg-white   shadow-[1px_0_7px_rgba(0,0,0,0.1),_-1px_0_7px_rgba(0,0,0,0.1),0_2px_7px_rgba(0,0,0,0.1)] z-100">
       {suggestions.map((item) => (
         <div key={item} onClick={() => handleSelectedResult(item)}>
           {/* <Link to={"/results?search_query=" + item}> */}

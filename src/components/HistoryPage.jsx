@@ -100,7 +100,7 @@ const HistoryPage = () => {
   };
 
   return (
-    <div className=" grid grid-cols-12 w-full h-screen pb-[5%]">
+    <div className=" grid grid-cols-12 h-screen pb-[5%]">
       <div className="col-span-8 overflow-y-auto h-full">
         <div className="text-4xl font-bold m-5 mb-8"> Watch history</div>
         {history.length > 0 ? (

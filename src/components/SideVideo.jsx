@@ -230,82 +230,86 @@ const SideVideo = ({ info }) => {
           </Box>
         </div>
       )}
-      <div className="flex my-2 cursor-pointer w-full relative">
-        <div>
+
+      <div className="flex  flex-col lg:flex-row my-2 cursor-pointer w-full relative">
+        <div className="lg:mr-3">
           <img
             src={thumbnails?.maxres?.url || thumbnails?.medium?.url}
             alt="side video"
-            className="min-w-40 h-23 rounded-lg mr-3"
+            className="w-full  lg:min-w-40  z-[-10000px]  lg:h-25 object-cover rounded-lg"
           />
         </div>
-        <div className="">
-          <div className="font-semibold text-sm h-11 overflow-hidden break-all line-clamp-2 w-full">
-            {title}
-          </div>
-          <div className="text-xs text-gray-600 font-medium">
-            {channelTitle}
-          </div>
-          <div className="text-xs text-gray-600 font-medium">
-            {parseInt(statistics?.viewCount / 1000)}K views •{" "}
-            {getTimeAgo(publishedAt)}
-          </div>
-        </div>
-
-        <div
-          className="z-50 cursor-pointer min-w-7 rounded-full hover:bg-gray-300 h-7 flex justify-center items-center ml-auto"
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            handleInfoClick();
-          }}
-          ref={dropdownRef}
-        >
-          {show && (
-            <div className="absolute flex flex-col py-4 bg-gray-300 right-10 top-10 justify-center rounded-md w-60 z-50 shadow-lg">
-              <div
-                onClick={() => {
-                  const updatedPlaylists = localStorage.getItem("playlists");
-                  const parsed = updatedPlaylists
-                    ? JSON.parse(updatedPlaylists)
-                    : {};
-
-                  // 💾 Update state so Select reflects new list next time
-                  setListOfplaylist(parsed);
-                  setShowPlaylistInput(true);
-                }}
-                className="cursor-pointer hover:bg-gray-200 py-2 px-3 flex items-center"
-              >
-                <div className="w-10 ml-2">
-                  <FontAwesomeIcon icon={faBookmark} size="xl" />
-                </div>
-                <div className="font-medium ml-2">Save to playlist</div>
-              </div>
-
-              <div
-                onClick={() => handleWatchLater(info?.id)}
-                className="cursor-pointer hover:bg-gray-200 py-2 px-3 flex items-center"
-              >
-                <div className="w-10 ml-2">
-                  <FontAwesomeIcon icon={faClock} size="xl" />
-                </div>
-                <div className="font-medium ml-2">Save to watch later</div>
-              </div>
-
-              <div
-                onClick={() => handleShare(title, info?.id)}
-                className="cursor-pointer hover:bg-gray-200 py-2 px-3 flex items-center"
-              >
-                <div className="w-10 ml-2">
-                  <FontAwesomeIcon icon={faShare} size="xl" />
-                </div>
-                <div className="font-medium ml-2">Share</div>
-              </div>
+        <div className="flex justify-between w-full">
+          <div className="">
+            <div className="font-semibold text-sm sm:text-lg lg:text-sm h-11  sm:h-14 lg:h-11 overflow-hidden break-all line-clamp-2 w-full ">
+              {title}
             </div>
-          )}
-          <FontAwesomeIcon
-            icon={faEllipsisVertical}
-            className="cursor-pointer"
-          />
+            <div className="text-xs text-gray-600 font-medium  h-5 overflow-hidden  line-clamp-1 w-full">
+              {channelTitle}
+            </div>
+            <div className="text-xs text-gray-600 font-medium h-5 overflow-hidden  line-clamp-1 w-full">
+              {parseInt(statistics?.viewCount / 1000)}K views •{" "}
+              {getTimeAgo(publishedAt)}
+            </div>
+          </div>
+
+          <div
+            className="z-50  cursor-pointer min-w-7 rounded-full hover:bg-gray-300 h-7 flex justify-center items-center ml-auto"
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              handleInfoClick();
+            }}
+            ref={dropdownRef}
+          >
+            {show && (
+              <div className="absolute flex flex-col py-4 bg-gray-300 right-10 bottom-18 top-auto lg:top-1 lg:bottom-auto   justify-center rounded-md w-60 z-50  shadow-lg ">
+                <div
+                  onClick={() => {
+                    const updatedPlaylists = localStorage.getItem("playlists");
+                    const parsed = updatedPlaylists
+                      ? JSON.parse(updatedPlaylists)
+                      : {};
+
+                    // 💾 Update state so Select reflects new list next time
+                    setListOfplaylist(parsed);
+                    setShowPlaylistInput(true);
+                  }}
+                  className="cursor-pointer hover:bg-gray-200 py-2 px-3 flex items-center"
+                >
+                  <div className="w-10 ml-2">
+                    <FontAwesomeIcon icon={faBookmark} size="xl" />
+                  </div>
+                  <div className="font-medium ml-2">Save to playlist</div>
+                </div>
+
+                <div
+                  onClick={() => handleWatchLater(info?.id)}
+                  className="cursor-pointer hover:bg-gray-200 py-2 px-3 flex items-center"
+                >
+                  <div className="w-10 ml-2">
+                    <FontAwesomeIcon icon={faClock} size="xl" />
+                  </div>
+                  <div className="font-medium ml-2">Save to watch later</div>
+                </div>
+
+                <div
+                  onClick={() => handleShare(title, info?.id)}
+                  className="cursor-pointer hover:bg-gray-200 py-2 px-3 flex items-center"
+                >
+                  <div className="w-10 ml-2">
+                    <FontAwesomeIcon icon={faShare} size="xl" />
+                  </div>
+                  <div className="font-medium ml-2">Share</div>
+                </div>
+              </div>
+            )}
+
+            <FontAwesomeIcon
+              icon={faEllipsisVertical}
+              className="cursor-pointer"
+            />
+          </div>
         </div>
       </div>
     </>

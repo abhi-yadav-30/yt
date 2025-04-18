@@ -42,12 +42,13 @@ const WatchPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(closeMenu());
-    
+
     let likedVideos = localStorage.getItem("likedVideos");
     if (likedVideos) {
       likedVideos = JSON.parse(likedVideos);
-      if (likedVideos.includes(videoId)) setReaction({ dislike:false , like: true })
-        else setReaction({ dislike: false, like: false });
+      if (likedVideos.includes(videoId))
+        setReaction({ dislike: false, like: true });
+      else setReaction({ dislike: false, like: false });
     } else {
       setReaction({ dislike: false, like: false });
     }
@@ -187,129 +188,134 @@ const WatchPage = () => {
         isMenuOpen ? "mx-3" : ""
       }  pt-6 grid grid-cols-59 overflow-y-auto h-full  pb-[5%]`}
     >
-      <div className="col-span-41">
-        <div>
+      <div className="lg:col-span-41 col-span-59 md:col-span-58 w-full">
+        <div className="sm:relative w-full pt-[56.25%] aspect-video fixed top-14 sm:top-auto z-30">
+          {/* 16:9 Aspect Ratio */}
           <iframe
-            width={isMenuOpen ? "867" : "983"}
-            height={isMenuOpen ? "490" : "553"}
             src={getIframUrl(videoId)}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            className="rounded-xl"
+            className="absolute top-0 left-0 w-full h-full sm:rounded-xl"
           ></iframe>
         </div>
-        <div className="font-bold text-xl py-2">{videoData.title}</div>
+        <div className="px-2 pt-[48.25%] sm:p-0 ">
+          <div className="font-bold text-md py-2 sm:text-xl">
+            {videoData.title}
+          </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex">
-            <div className="mr-3">
-              <img
-                src={videoData.channelImg}
-                alt="chlImg"
-                className="w-10 rounded-full"
-              />
+          <div className="flex  md:justify-between gap-5 flex-col md:flex-row w-full">
+            <div className="flex w-full justify-between">
+              <div className="flex">
+                <div className="mr-3">
+                  <img
+                    src={videoData.channelImg}
+                    alt="chlImg"
+                    className="w-10 rounded-full"
+                  />
+                </div>
+                <div className="mr-10">
+                  <div className="font-semibold line-clamp-1 w-full">
+                    {videoData.channelTitle}
+                  </div>
+                  <div className="text-xs text-gray-700 line-clamp-1 w-full">
+                    {formatNumber(videoData.subscriberCount)} subscribers
+                  </div>
+                </div>
+              </div>
+              {!isSubscribed ? (
+                <button
+                  className="bg-black w-28 lg:w-35 h-10 text-white  rounded-4xl font-medium hover:bg-gray-800 cursor-pointer"
+                  onClick={handleSubscribe}
+                >
+                  Subscrib
+                </button>
+              ) : (
+                <button
+                  className="bg-red-600 w-35 lg:w-35 h-10 text-white  rounded-4xl font-medium  cursor-pointer"
+                  onClick={handleSubscribe}
+                >
+                  Subscribed
+                </button>
+              )}
             </div>
-            <div className="mr-10">
-              <div className="font-semibold">{videoData.channelTitle}</div>
-              <div className="text-xs text-gray-700">
-                {formatNumber(videoData.subscriberCount)} subscribers
+
+            <div className="flex justify-between  sm:overflow-visible overflow-x-auto">
+              <div className="flex mr-2">
+                <button
+                  className={`cursor-pointer px-3 py-2 hover:bg-gray-300  rounded-l-4xl border-r-1 border-gray-300 bg-gray-200 whitespace-nowrap flex
+  `}
+                  onClick={() => handleLike("like")}
+                >
+                  {reaction.like ? (
+                    <FontAwesomeIcon icon={faThumbsUpSolid} size="lg" />
+                  ) : (
+                    <FontAwesomeIcon icon={faThumbsUpRegular} size="lg" />
+                  )}
+                  <span className="font-medium ml-2">
+                    {formatNumber(
+                      Number(videoData.likes) + (reaction.like ? 1 : 0)
+                    )}
+                  </span>
+                </button>
+                <button
+                  className={`cursor-pointer px-4 py-2  rounded-r-4xl bg-gray-200 hover:bg-gray-300`}
+                  onClick={() => {
+                    handleLike("dislike");
+                  }}
+                >
+                  {reaction.dislike ? (
+                    <FontAwesomeIcon icon={faThumbsDownSolid} size="lg" />
+                  ) : (
+                    <FontAwesomeIcon icon={faThumbsDownRegular} size="lg" />
+                  )}
+                </button>
+              </div>
+              <div className="mr-2">
+                <button
+                  className="cursor-pointer px-3 py-2  bg-gray-200 rounded-4xl flex items-center hover:bg-gray-300"
+                  onClick={() => handleShare(videoData?.title, videoId)}
+                >
+                  <FontAwesomeIcon icon={faShare} size="lg" />
+                  <span className="font-medium ml-2">Share</span>
+                </button>
+              </div>
+              <div>
+                <button
+                  className="cursor-pointer px-3 py-2  bg-gray-200 rounded-4xl flex items-center hover:bg-gray-300"
+                  onClick={() => {
+                    alert("Download not available yet — coming soon!");
+                  }}
+                >
+                  <FontAwesomeIcon icon={faDownload} size="lg" />
+                  <span className="font-medium ml-2">Download</span>
+                </button>
               </div>
             </div>
-            {!isSubscribed ? (
-              <button
-                className="bg-black w-35 text-white px-6 rounded-4xl font-medium hover:bg-gray-800 cursor-pointer"
-                onClick={handleSubscribe}
-              >
-                Subscrib
-              </button>
-            ) : (
-              <button
-                className="bg-red-600 w-35 text-white px-6 rounded-4xl font-medium  cursor-pointer"
-                onClick={handleSubscribe}
-              >
-                Subscribed
-              </button>
-            )}
           </div>
 
-          <div className="flex">
-            <div className="flex mr-2">
-              <button
-                className={`cursor-pointer px-3 py-2 hover:bg-gray-300  rounded-l-4xl border-r-1 border-gray-300 bg-gray-200 whitespace-nowrap flex
-  `}
-                onClick={() => handleLike("like")}
-              >
-                {reaction.like ? (
-                  <FontAwesomeIcon icon={faThumbsUpSolid} size="lg" />
-                ) : (
-                  <FontAwesomeIcon icon={faThumbsUpRegular} size="lg" />
-                )}
-                <span className="font-medium ml-2">
-                  {formatNumber(
-                    Number(videoData.likes) + (reaction.like ? 1 : 0)
-                  )}
-                </span>
-              </button>
-              <button
-                className={`cursor-pointer px-4 py-2  rounded-r-4xl bg-gray-200 hover:bg-gray-300`}
-                onClick={() => {
-                  handleLike("dislike");
-                }}
-              >
-                {reaction.dislike ? (
-                  <FontAwesomeIcon icon={faThumbsDownSolid} size="lg" />
-                ) : (
-                  <FontAwesomeIcon icon={faThumbsDownRegular} size="lg" />
-                )}
-              </button>
-            </div>
-            <div className="mr-2">
-              <button
-                className="cursor-pointer px-3 py-2  bg-gray-200 rounded-4xl flex items-center hover:bg-gray-300"
-                onClick={() => handleShare(videoData?.title, videoId)}
-              >
-                <FontAwesomeIcon icon={faShare} size="lg" />
-                <span className="font-medium ml-2">Share</span>
-              </button>
-            </div>
-            <div>
-              <button
-                className="cursor-pointer px-3 py-2  bg-gray-200 rounded-4xl flex items-center hover:bg-gray-300"
-                onClick={() => {
-                  alert("Download not available yet — coming soon!");
-                }}
-              >
-                <FontAwesomeIcon icon={faDownload} size="lg" />
-                <span className="font-medium ml-2">Download</span>
-              </button>
-            </div>
-          </div>
+          <Description
+            videoData={videoData}
+            showMoreDisc={showMoreDisc}
+            handleShowMoreDisc={(t) => setShowMoreDisc(t)}
+          />
+
+          <Comments videoId={videoId} commentCount={videoData.commentCount} />
         </div>
-
-        <Description
-          videoData={videoData}
-          showMoreDisc={showMoreDisc}
-          handleShowMoreDisc={(t) => setShowMoreDisc(t)}
-        />
-
-        <Comments videoId={videoId} commentCount={videoData.commentCount} />
       </div>
 
-      <div className="col-span-1"></div>
+      <div className="md:col-span-1"></div>
 
-      <div className="col-span-17  w-full pr-5">
-        {videoData.liveBroadcastContent &&
-        videoData.liveBroadcastContent === "live" ? (
+      <div className="col-span-59 md:col-span-58 lg:col-span-17 w-full px-2 sm:pr-5 sm:pl-0   ">
+        {videoData.liveBroadcastContent === "live" ? (
           <LiveChatContainer />
         ) : (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto hidden lg:block">
             <ButtonList />
           </div>
         )}
-
         <SideVideos />
       </div>
     </div>

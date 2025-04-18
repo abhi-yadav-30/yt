@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { isMock, YOUTUBE_VIDEOS_API } from "../utils/constants/apis";
+import { HOME_PAGE_MOCK_DATA } from "../utils/constants/mockData";
 import VideoCard from "./VideoCard";
 import { Link } from "react-router-dom";
-import { saveJSONToFile } from "../utils/functions";
-import { HOME_PAGE_MOCK_DATA } from "../utils/constants/mockData";
 import notfound from "../assets/notfound.svg";
 
 const VideoContainer = () => {
@@ -26,9 +25,8 @@ const VideoContainer = () => {
         json = HOME_PAGE_MOCK_DATA;
       }
 
-      // saveJSONToFile("uot.json", json);
       if (json?.items) {
-        setVideos(json?.items);
+        setVideos(json.items);
       } else {
         setVideos([]);
       }
@@ -42,7 +40,7 @@ const VideoContainer = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  if (videos.length == 0)
+  if (videos.length === 0)
     return (
       <div className="w-full mt-[2%]">
         <center>
@@ -57,16 +55,13 @@ const VideoContainer = () => {
       </div>
     );
 
-
   return (
-    <div className="gap-5 flex flex-wrap justify-between">
-      {videos.map((video) => {
-        return (
-          <Link to={"/watch?v=" + video.id} key={video.id}>
-            <VideoCard info={video} />
-          </Link>
-        );
-      })}
+    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+      {videos.map((video) => (
+        <Link to={`/watch?v=${video.id}`} key={video.id}>
+          <VideoCard info={video} />
+        </Link>
+      ))}
     </div>
   );
 };

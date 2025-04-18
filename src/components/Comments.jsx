@@ -23,22 +23,36 @@ const Comments = ({ videoId, commentCount }) => {
     setComments(json?.items);
   };
 
+  const [show , setShow ]= useState(false);
   if (!commentCount || !comments) return;
 
 
   return (
-    <div className="mt-6">
+    <div className="mt-6  overflow-hidden ">
       <div className="font-bold text-xl">
         {parseInt(commentCount).toLocaleString()} Comments
       </div>
-      {comments && comments.length > 0 &&
-        comments.map((comment) => (
-          <CommentCard
-            info={comment.snippet?.topLevelComment?.snippet}
-            replies={comment.replies}
-            key={comment.id}
-          />
-        ))}
+      <div className={`${show?"h-full":"h-20"} mb-8 `}>
+        {comments &&
+          comments.length > 0 &&
+          comments.map((comment) => (
+            <CommentCard
+              info={comment.snippet?.topLevelComment?.snippet}
+              replies={comment.replies}
+              key={comment.id}
+            />
+          ))}
+      </div>
+      <button className="  bg-white w-full text-blue-500 pb-4 cursor-pointer font-bold" onClick={()=>setShow(!show)}>
+        {show ? "Show less" : "show all comments"}
+      </button>
+      {/* {show ? (
+        <div className="ml-auto">Show less</div>
+      ) : (
+        <button className="  bg-white w-full text-blue-500 pb-4 cursor-pointer">
+          show
+        </button>
+      )} */}
     </div>
   );
 };

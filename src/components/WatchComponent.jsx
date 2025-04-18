@@ -142,8 +142,8 @@ const WatchComponent = ({ title, keyWord, msg1, msg2 }) => {
   };
 
   return (
-    <div className=" flex  w-screen h-screen pb-[4%]">
-      <div className="col-span-8 overflow-y-auto h-full w-[60%]">
+    <div className=" grid h-full grid-rows-24 grid-cols-1 md:grid-cols-12 md:grid-rows-1 w-full">
+      <div className="row-span-21 md:col-span-8 overflow-y-auto h-full pb-5">
         <div className="text-4xl font-bold m-5 mb-8">
           {title.replace(/\b\w/g, (char) => char.toUpperCase())}
           {keyWord === "playlists" && " : " + playlistTitle}
@@ -162,7 +162,7 @@ const WatchComponent = ({ title, keyWord, msg1, msg2 }) => {
             ))}
           </div>
         ) : !loading ? (
-          <div className="flex items-center justify-center   flex-col">
+          <div className="flex items-center justify-center flex-col h-[80%]">
             {keyWord === "watchHistory" && (
               <img
                 src={watchHistory}
@@ -204,40 +204,52 @@ const WatchComponent = ({ title, keyWord, msg1, msg2 }) => {
           <div></div>
         )}
       </div>
-      <div className="text-xl col-span-4 flex flex-col justify-center  items-center pl-5">
-        <div>
-          <hr className="text-gray-400" />
-          <div
-            className="mt-5 cursor-pointer  px-6 py-4 rounded-2xl hover:bg-gray-200 font-semibold"
-            onClick={handleAllClear}
-          >
-            <FontAwesomeIcon icon={faTrashAlt} /> Clear all {title}
-          </div>
-          {keyWord === "watchHistory" && (
+      <div className=" row-span-3  md:col-span-4 px-7">
+        <div className="flex flex-row md:flex-col   justify-center items-center   h-full text-xl">
+          <hr className="text-gray-400 w-full hidden md:block" />
+          <div className="flex flex-row md:flex-col">
             <div
-              className="my-2 cursor-pointer  px-6 py-4 rounded-2xl hover:bg-gray-200 font-semibold"
-              onClick={handlePauseHistory}
+              className="md:mt-5 cursor-pointer px-6 py-1 md:px-6 md:py-4  rounded-lg md:rounded-2xl watchComponentButton  hover:bg-gray-200 md:font-semibold text-sm md:text-xl"
+              onClick={handleAllClear}
             >
-              {pauseHistory ? (
-                <>
-                  <FontAwesomeIcon icon={faPlayCircle} /> Turn on watch history
-                </>
-              ) : (
-                <>
-                  <FontAwesomeIcon icon={faPauseCircle} /> Pause watch history
-                </>
-              )}
+              <FontAwesomeIcon icon={faTrashAlt} />{" "}
+              <span className="watchComponentButtonText">
+                Clear all {title}
+              </span>
             </div>
-          )}
-          <div
-            className={`mb-5 cursor-pointer  px-6 py-4 rounded-2xl hover:bg-gray-200 font-semibold ${
-              isManageHistory ? "bg-gray-200" : ""
-            }`}
-            onClick={() => setIsManageHistory(!isManageHistory)}
-          >
-            <FontAwesomeIcon icon={faCog} /> Manage {title}
+            {keyWord === "watchHistory" && (
+              <div
+                className="md:my-2 cursor-pointer watchComponentButton px-6 py-1 md:py-4 rounded-lg md:rounded-2xl hover:bg-gray-200 md:font-semibold text-sm md:text-xl"
+                onClick={handlePauseHistory}
+              >
+                {pauseHistory ? (
+                  <>
+                    <FontAwesomeIcon icon={faPlayCircle} />{" "}
+                    <span className="watchComponentButtonText">
+                      Turn on watch history
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <FontAwesomeIcon icon={faPauseCircle} />{" "}
+                    <span className="watchComponentButtonText">
+                      Pause watch history
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
+            <div
+              className={`md:mb-5 cursor-pointer  px-6 py-1 md:py-4 rounded-lg md:rounded-2xl hover:bg-gray-200 md:font-semibold text-sm md:text-xl  ${
+                isManageHistory ? "bg-gray-200" : ""
+              } watchComponentButton`}
+              onClick={() => setIsManageHistory(!isManageHistory)}
+            >
+              <FontAwesomeIcon icon={faCog} />
+              <span className="watchComponentButtonText"> Manage {title}</span>
+            </div>
           </div>
-          <hr className="text-gray-400" />
+          <hr className="text-gray-400 w-full hidden md:block" />
         </div>
       </div>
     </div>

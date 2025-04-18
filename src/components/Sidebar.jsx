@@ -52,9 +52,9 @@ const Sidebar = () => {
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
   return (
     <div
-      className={`pl-4 ${
-        isMenuOpen ? "w-60" : "w-25"
-      } h-[92%] overflow-y-auto pr-4 pt-4 `}
+      className={` ${
+        isMenuOpen ? "md:w-60 w-full p-4" : "w-18 hidden md:block "
+      }   z-[1000px] bg-white opacity-100`}
     >
       <div className="mb-2.5">
         <ul>

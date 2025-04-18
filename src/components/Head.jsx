@@ -74,10 +74,10 @@ const Head = () => {
   };
 
   return (
-    <div className="shadow-lg pb-2  pt-2 grid grid-flow-col  z-50 mb-4 w-full bg-white fixed h-14 top-0 px-8">
-      <div className="flex items-center col-span-1">
+    <div className="shadow-lg pb-2  pt-2 grid grid-cols-12  z-50 mb-4 w-full bg-white fixed h-14 top-0 md:px-8 px-2">
+      <div className="flex items-center col-span-2 lg:col-span-2 ">
         <div
-          className="mr-5 cursor-pointer hover:bg-gray-200 h-10 w-10 rounded-full flex items-center justify-center"
+          className="md:mr-5 mr-1  cursor-pointer hover:bg-gray-200 h-10 w-10 rounded-full flex items-center justify-center"
           onClick={handleToggleMenu}
         >
           <FontAwesomeIcon icon={faBars} size="xl" />
@@ -86,13 +86,20 @@ const Head = () => {
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1024px-YouTube_Logo_2017.svg.png"
             alt="logo"
-            className="h-8"
+            className="h-8 hidden md:block"
+          />
+        </Link>
+        <Link to="/">
+          <img
+            src="/youtube.svg"
+            alt="logo"
+            className="h-8 block md:hidden"
           />
         </Link>
       </div>
 
-      <div className="col-span-10  ">
-        <form action="">
+      <div className=" col-span-10 sm:col-span-9 lg:col-span-9  ml-3">
+        <form action="" role="search" aria-label="Site Search">
           <div className="flex items-center h-10  justify-center">
             <div className="border-gray-300 border-2 h-full rounded-l-4xl w-125  focus-within:border-blue-500  flex">
               {isInputFocusd && (
@@ -113,7 +120,7 @@ const Head = () => {
                 onBlur={() => setTimeout(() => setIsInputFocusd(false), 250)}
               />
               {isInputFocusd && (
-                <div className="absolute mt-11 w-125">
+                <div className="absolute z-50 mt-11 left-0 w-full sm:left-auto sm:w-125  bg-white shadow-lg  sm:rounded-lg">
                   <Suggetions
                     suggestions={suggestions}
                     handleSelectedResult={handleSearch}
@@ -135,7 +142,7 @@ const Head = () => {
           </div>
         </form>
       </div>
-      <div className=" flex justify-end col-span-2 ">
+      <div className=" flex justify-end sm:col-span-1 hidden sm:block ml-auto">
         <FontAwesomeIcon
           icon={faCircleUser}
           className="cursor-pointer text-gray-700"

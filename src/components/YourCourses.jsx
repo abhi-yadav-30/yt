@@ -3,7 +3,7 @@ import yourCourses from "../assets/yourCourses.jpg";
 
 const YourCourses = () => {
   return (
-    <div className="w-full mt-[2%]">
+    <div className="w-full flex items-center h-full">
           <center>
             <img src={yourCourses} alt="your Videos" className="w-[50%]" />
             <div className="flex flex-col items-center justify-center text-center text-gray-600 mt-3">

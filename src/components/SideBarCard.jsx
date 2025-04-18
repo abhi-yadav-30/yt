@@ -31,7 +31,9 @@ const SideBarCard = ({ data, isIcon = true }) => {
   
 const isMenuOpen = useSelector((store)=>store.app.isMenuOpen);
   return (
-    <Link to={data.path}>
+    <Link to={data.path} onClick={(e)=>{
+      e.stopPropagation();
+    }}>
       <li className="hover:bg-gray-200 px-5 py-2 rounded-lg cursor-pointer list-none flex items-center">
         <span className="mr-6 w-7">
           {isIcon ? (

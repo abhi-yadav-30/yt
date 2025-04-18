@@ -30,9 +30,9 @@ const CommentCard = ({ info, replies, isReply = false }) => {
 
   return (
     <div
-      className={`grid  ${!isReply ? "grid-cols-16" : "grid-cols-25"}   my-4`}
+      className={`grid  ${!isReply ? "grid-cols-16" : "grid-cols-25"}   my-4 `}
     >
-      <div className="mt-1.5 col-span-1">
+      <div className="mt-1.5 col-span-2 md:col-span-1">
         {authorProfileImageUrl ? (
           <img
             src={
@@ -46,7 +46,7 @@ const CommentCard = ({ info, replies, isReply = false }) => {
           <></>
         )}
       </div>
-      <div className={`${!isReply ? "col-span-15" : "col-span-24"}`}>
+      <div className={`${!isReply ? "col-span-14 md:col-span-15 " : "col-span-23 md:col-span-24"}`}>
         <div>
           <span
             className={`font-semibold  mr-2 ${
@@ -107,7 +107,9 @@ const CommentCard = ({ info, replies, isReply = false }) => {
               ) : (
                 <FontAwesomeIcon icon={faAngleUp} />
               )}
-              <span className="ml-2">{replies?.comments?.length || 0} replies</span>
+              <span className="ml-2">
+                {replies?.comments?.length || 0} replies
+              </span>
             </button>
             {showReplies &&
               replies &&

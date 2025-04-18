@@ -41,7 +41,7 @@ const Shorts = () => {
           }
         });
       },
-      { threshold: 0.6 }
+      { threshold: 0.9 }
     );
 
     refs.current.forEach((ref) => ref && observer.observe(ref));
@@ -83,7 +83,7 @@ const Shorts = () => {
         if (target) {
           target.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      }, 400); // delay to detect scroll stop
+      }, 800); // delay to detect scroll stop
     };
 
     container.addEventListener("scroll", handleScroll, { passive: true });
@@ -97,12 +97,12 @@ const Shorts = () => {
   if (loading) return;
 
   return shorts.length !== 0 ? (
-    <div className="px-7 w-screen">
+    <div className="px-7 w-full h-full">
       <h2 className="text-4xl font-bold">Shorts</h2>
       <center>
         <div
-          className={`overflow-y-scroll no-scrollbar h-150 ${
-            isMenuOpen ? "mr-[15%]" : ""
+          className={`overflow-y-scroll  no-scrollbar h-[84vh]   ${
+            isMenuOpen ? "" : ""
           } `}
           ref={containerRef}
         >
@@ -111,7 +111,7 @@ const Shorts = () => {
               key={short.id}
               data-index={index}
               ref={(el) => (refs.current[index] = el)}
-              className=""
+              className="h-full "
             >
               <ShortsCard data={short} isVisible={index === visibleIndex} />
             </div>

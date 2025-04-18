@@ -6,53 +6,50 @@ import VideoType from "./VideoType";
 
 const VideoCard = ({ info }) => {
   const [channelImg, setChannelImg] = useState("");
-  if (!info) return <div className="w-60 bg-gray-100 h-40">hkhkh</div>;
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
   useEffect(() => {
-    if (!isMock) fetcChannleData();
+    if (!isMock) fetchChannelData();
   }, []);
 
-  const fetcChannleData = async () => {
+  const fetchChannelData = async () => {
     const data = await fetch(
-      YOUTUBE_CHANNEL_IMG_API + `&id=${info?.snippet?.channelId}`
+      `${YOUTUBE_CHANNEL_IMG_API}&id=${info?.snippet?.channelId}`
     );
-
     const json = await data.json();
-
-    // console.log(json);
     const { thumbnails } = json?.items[0]?.snippet;
     setChannelImg(thumbnails?.default?.url);
-    // console.log(thumbnails?.default?.url);
   };
+
+  if (!info) return <div className="bg-gray-100 h-40">Loading...</div>;
 
   const { snippet, statistics } = info;
   const { title, thumbnails, publishedAt, channelTitle } = snippet;
-  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
-  //  console.log({lable:channelTitle , icon:channelImg});
-  // if(!channelImg) return;
+
   return (
-    <div
-      className={` ${
-        isMenuOpen ? "w-96" : "w-110"
-      } shadow-xl rounded-xl cursor-pointer mb-2`}
-    >
-      <img
-        src={thumbnails?.maxres?.url || thumbnails?.medium?.url}
-        alt="thumbnail"
-        className={` ${isMenuOpen ? "w-100" : "w-115"} rounded-xl`}
-      />
-      <div className="p-2 flex ">
-        <div className="min-w-13">
-          {channelImg.length !== 0 && (
-            <img src={channelImg} alt="chlImg" className="w-10 rounded-full" />
-          )}
-        </div>
-        <div>
-          <div className="font-bold text-md h-13 overflow-hidden">{title}</div>
-          <div className="text-sm text-gray-600 font-medium">
-            {channelTitle}
-          </div>
-          <div className="text-sm text-gray-600 font-medium">
+    <div className="w-full sm:aspect-[16/14] bg-white shadow-md  sm:rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+      {/* Thumbnail */}
+      <div className="aspect-[16/9] w-full">
+        <img
+          src={thumbnails?.maxres?.url || thumbnails?.medium?.url}
+          alt="thumbnail"
+          className="w-full h-full object-cover sm:rounded-xl"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="p-3 flex gap-3 items-start flex-1 overflow-hidden">
+        {channelImg && (
+          <img
+            src={channelImg}
+            alt="channel"
+            className="w-10 h-10 rounded-full shrink-0"
+          />
+        )}
+        <div className="flex flex-col justify-between overflow-hidden">
+          <div className="font-semibold text-md line-clamp-2">{title}</div>
+          <div className="text-sm text-gray-600 truncate">{channelTitle}</div>
+          <div className="text-sm text-gray-600">
             {parseInt(statistics?.viewCount / 1000)}K views •{" "}
             {getTimeAgo(publishedAt)}
           </div>

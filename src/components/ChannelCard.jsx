@@ -6,13 +6,17 @@ import {
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import Cavatar from "../assets/Cavatar.png"
+import { useSelector } from "react-redux";
 
 const ChannelCard = ({ title, imageUrl, subscriberCount, videoCount }) => {
  useEffect(() => {}, [imageUrl]);
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
  if (!imageUrl) return;
    return (
-     <div className="overflow-hidden max-w-sm w-80 transition-all  shadow-xl border-t-4 border-t-red-600 group rounded-2xl mx-8 h-75 mb-12">
+     <div
+       className={`overflow-hidden max-w-sm w-80 transition-all  shadow-xl border-t-4 border-t-red-600 group rounded-2xl  h-75 mb-12`}
+     >
        <div className="p-0">
          <div className="bg-gradient-to-b  to-white from-gray-900 ">
            <div className="flex flex-col items-center p-6">
