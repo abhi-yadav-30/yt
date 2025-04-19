@@ -125,7 +125,7 @@ const ResultCard = ({ result, isHistory = false }) => {
         </div>
 
         <div
-          className=" z-40 cursor-pointer min-w-10 rounded-full hover:bg-gray-300  h-10 flex justify-center items-center ml-auto "
+          className="relative z-40 cursor-pointer min-w-10 rounded-full hover:bg-gray-300  h-10 flex justify-center items-center ml-auto "
           onClick={(e) => {
             e.stopPropagation(); // ensure it stops before reaching Link
             e.preventDefault(); // also prevent the default anchor behavior

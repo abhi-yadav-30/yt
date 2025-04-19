@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import noPlaylists from "../assets/noPlaylists.jpg";
+import noPlaylists from "../assets/noPlaylists.svg";
 import {
   Box,
   Typography,

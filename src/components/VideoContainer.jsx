@@ -4,10 +4,19 @@ import { HOME_PAGE_MOCK_DATA } from "../utils/constants/mockData";
 import VideoCard from "./VideoCard";
 import { Link } from "react-router-dom";
 import notfound from "../assets/notfound.svg";
+import { useDispatch } from "react-redux";
+import { closeMenu, toggleMenu } from "../utils/appSlice";
+import { useIsMobile } from "../../hooks";
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  // const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+   const isMobile = useIsMobile(768);
+  if (isMobile) {
+    const dispatch = useDispatch();
+    dispatch(closeMenu());
+  }
 
   useEffect(() => {
     fetchVideos();

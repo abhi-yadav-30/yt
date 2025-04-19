@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ChannelCard from "./ChannelCard";
 import { YOUTUBE_CHANNELS_API } from "../utils/constants/apis";
-import noSub from "../assets/noSubscriptions.jpg"
+import noSub from "../assets/noSubscriptions.svg";
 import { useSelector } from "react-redux";
 
 const Subscriptions = () => {
@@ -41,14 +41,14 @@ const Subscriptions = () => {
   //     return Intl.NumberFormat("en-US", { notation: "compact" }).format(num);
   //   };
 
-  const isMenuOpen = useSelector((store)=>store.app.isMenuOpen)
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (!channelsData)
     return (
-      <div className=" mt-[2%]">
-        <center>
-          <img src={noSub} alt="no Subscription" className="w-[45%]" />
+      <div className="h-full">
+        <center className="h-full">
+          <img src={noSub} alt="no Subscription" className="h-[70%]" />
           <div className="flex flex-col items-center justify-center text-center text-gray-600 mt-3">
             <div className="text-2xl font-semibold mb-2">
               You're not subscribed to any channels yet.
@@ -62,7 +62,9 @@ const Subscriptions = () => {
     );
 
   return (
-    <div className={`overflow-y-auto h-full pt-6  flex flex-wrap px-6  pb-8 justify-around`}>
+    <div
+      className={`overflow-y-auto h-full pt-6  flex flex-wrap px-6  pb-8 justify-around`}
+    >
       {channelsData.map((channel) => (
         <ChannelCard
           key={channel.id}

@@ -38,7 +38,7 @@ const Body = () => {
           <div
             className={`transition-all duration-800 ${
               isMenuOpen ? "w-64" : "w-0  md:w-18"
-            }  overflow-y-auto h-full`}
+            }  overflow-y-auto bg-white h-full`}
           >
             <Sidebar />
           </div>

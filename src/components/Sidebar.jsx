@@ -6,55 +6,54 @@ import { YOUTUBE_CHANNELS_API } from "../utils/constants/apis";
 import { useSelector } from "react-redux";
 
 const Sidebar = () => {
-  const [channelsData, setChannelsData] = useState(["Sdb"]);
-  // const [loading, setLoading] = useState(true);
+  const [channelsData, setChannelsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   let channelIds = localStorage.getItem("subscriptions");
+  useEffect(() => {
+    let channelIds = localStorage.getItem("subscriptions");
 
-  //   if (!channelIds) {
-  //     setLoading(false);
-  //     return;
-  //   }
+    if (!channelIds) {
+      setLoading(false);
+      return;
+    }
 
-  //   channelIds = JSON.parse(channelIds).join(",");
+    channelIds = JSON.parse(channelIds).slice(-6).reverse().join(",");
+    const fetchChannelData = async () => {
+      try {
+        const response = await fetch(
+          YOUTUBE_CHANNELS_API + `&id=${channelIds}`
+        );
+        let data = await response.json();
+        data = data?.items;
+        data.map((item) => {
+          const obj = {
+            label: item?.snippet?.title,
+            icon:
+              item?.snippet?.thumbnails?.high?.url ||
+              item?.snippet?.thumbnails?.default?.url,
+            path: "/results?search_query=" + item?.snippet?.title,
+          };
+          let temp = channelsData;
+          temp.push(obj);
+          setChannelsData(temp);
+        });
+        // setChannelsData(data?.items);
+        console.log(data?.items);
+      } catch (error) {
+        console.error("Error fetching channel data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   const fetchChannelData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         YOUTUBE_CHANNELS_API + `&id=${channelIds}`
-  //       );
-  //       let data = await response.json();
-  //       data = data?.items;
-  //       data.map((item) => {
-  //         const obj = {
-  //           label: item?.snippet?.title,
-  //           icon:
-  //             item?.snippet?.thumbnails?.high?.url ||
-  //             item?.snippet?.thumbnails?.default?.url,
-  //           path: "/results?search_query=" + item?.snippet?.title,
-  //         };
-  //         let temp = channelsData;
-  //         temp.push(obj);
-  //         setChannelsData(temp);
-  //       });
-  //       // setChannelsData(data?.items);
-  //       console.log(data?.items);
-  //     } catch (error) {
-  //       console.error("Error fetching channel data:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchChannelData();
-  // }, []);
+    fetchChannelData();
+  }, []);
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
   return (
     <div
       className={` ${
         isMenuOpen ? "md:w-60 w-full p-4" : "w-18 hidden md:block "
-      }   z-[1000px] bg-white opacity-100`}
+      }   z-[1000px] bg-white opacity-100 h-full`}
     >
       <div className="mb-2.5">
         <ul>
@@ -83,7 +82,7 @@ const Sidebar = () => {
           <h1 className="font-semibold px-5">Subscriptions</h1>
           {channelsData.length > 0 && (
             <ul>
-              {card3.map((card) => (
+              {channelsData.map((card) => (
                 <SideBarCard data={card} key={card.label} isIcon={false} />
               ))}
             </ul>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import watchHistory from "../assets/noData.jpg";
+import watchHistory from "../assets/noData.svg";
 import {
   faCog,
   faPauseCircle,
@@ -20,7 +20,7 @@ import {
 } from "../utils/constants/apis";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import watchLater from "../assets/watchLater.jpg"
+import watchLater from "../assets/watchLater.svg"
 
 const WatchLater = () => {
   const [videoIds, setVideoIds] = useState([]);

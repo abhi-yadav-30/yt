@@ -12,8 +12,9 @@ import {
   faThumbsUp,
   faRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { closeMenu } from "../utils/appSlice";
+import { useIsMobile } from "../../hooks";
 
 const iconMap = {
   faHome,
@@ -28,12 +29,21 @@ const iconMap = {
 };
 
 const SideBarCard = ({ data, isIcon = true }) => {
-  
-const isMenuOpen = useSelector((store)=>store.app.isMenuOpen);
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
+  // const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const isMobile = useIsMobile(768);
+  const dispatch = useDispatch();
+
   return (
-    <Link to={data.path} onClick={(e)=>{
-      e.stopPropagation();
-    }}>
+    <Link
+      to={data.path}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (isMobile) {
+          dispatch(closeMenu());
+        }
+      }}
+    >
       <li className="hover:bg-gray-200 px-5 py-2 rounded-lg cursor-pointer list-none flex items-center">
         <span className="mr-6 w-7">
           {isIcon ? (

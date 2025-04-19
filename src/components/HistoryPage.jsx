@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import noData from "../assets/noData.jpg";
+import noData from "../assets/noData.svg";
 import {
   faCog,
   faPauseCircle,

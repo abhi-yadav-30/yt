@@ -4,6 +4,7 @@ import ShortsCard from "./ShortsCard";
 import { SHORTS_MOCK_DATA } from "../utils/constants/mockData";
 import { useSelector } from "react-redux";
 import notfound from "../assets/notfound.svg";
+import { useIsMobile } from "../../hooks";
 
 const Shorts = () => {
   const [shorts, setShorts] = useState([]);
@@ -93,17 +94,21 @@ const Shorts = () => {
     };
   }, [shorts]);
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
+  //  const [isMobile, setIsMobile] = useState(window.innerWidth < 480);
+   const isMobile = useIsMobile(480);
 
   if (loading) return;
 
   return shorts.length !== 0 ? (
-    <div className="px-7 w-full h-full">
-      <h2 className="text-4xl font-bold">Shorts</h2>
-      <center>
+    <div className={`w-full ${isMobile ? "h-full" : "h-full px-7"}`}>
+      <h2 className={`text-4xl font-bold ${isMobile ? "hidden" : ""}`}>
+        Shorts
+      </h2>
+      <center className="h-full">
         <div
-          className={`overflow-y-scroll  no-scrollbar h-[84vh]   ${
-            isMenuOpen ? "" : ""
-          } `}
+          className={`overflow-y-scroll  no-scrollbar  ${
+            isMobile ? "h-full" : "h-[84vh]"
+          }   ${isMenuOpen ? "" : ""} `}
           ref={containerRef}
         >
           {shorts.map((short, index) => (
@@ -113,7 +118,7 @@ const Shorts = () => {
               ref={(el) => (refs.current[index] = el)}
               className="h-full "
             >
-              <ShortsCard data={short} isVisible={index === visibleIndex} />
+              <ShortsCard data={short} isVisible={index === visibleIndex} isMobile={isMobile}/>
             </div>
           ))}
         </div>

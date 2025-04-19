@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import watchHistory from "../assets/noData.jpg";
-import watchLater from "../assets/watchLater.jpg";
-import noLikedVideos from "../assets/noLikedVideos.png";
-import noPlaylistVIdeos from "../assets/noPlaylistVideos.jpg";
+import watchHistory from "../assets/noData.svg";
+import watchLater from "../assets/watchLater.svg";
+import noLikedVideos from "../assets/noLikedVideos.svg";
+import noPlaylistVIdeos from "../assets/noPlaylistVideos.svg";
 import {
   faCog,
   faPauseCircle,

@@ -3,6 +3,7 @@ import { getComments, isMock } from "../utils/constants/apis";
 import CommentCard from "./CommentCard";
 import { saveJSONToFile } from "../utils/functions";
 import { COMMENTS_MOCK_DATA } from "../utils/constants/mockData";
+import { useIsMobile } from "../../hooks";
 
 const Comments = ({ videoId, commentCount }) => {
   const [comments, setComments] = useState([]);
@@ -23,16 +24,20 @@ const Comments = ({ videoId, commentCount }) => {
     setComments(json?.items);
   };
 
-  const [show , setShow ]= useState(false);
-  if (!commentCount || !comments) return;
+  const [show, setShow] = useState(true);
+  const isMobile = useIsMobile(1024);
+  useEffect(() => {
+    if (isMobile) setShow(false);
+  }, []);
 
+  if (!commentCount || !comments) return;
 
   return (
     <div className="mt-6  overflow-hidden ">
       <div className="font-bold text-xl">
         {parseInt(commentCount).toLocaleString()} Comments
       </div>
-      <div className={`${show?"h-full":"h-20"} mb-8 `}>
+      <div className={`${show ? "h-full" : "h-20"} mb-8 `}>
         {comments &&
           comments.length > 0 &&
           comments.map((comment) => (
@@ -43,7 +48,10 @@ const Comments = ({ videoId, commentCount }) => {
             />
           ))}
       </div>
-      <button className="  bg-white w-full text-blue-500 pb-4 cursor-pointer font-bold" onClick={()=>setShow(!show)}>
+      <button
+        className="  bg-white w-full text-blue-500 pb-4 cursor-pointer font-bold"
+        onClick={() => setShow(!show)}
+      >
         {show ? "Show less" : "show all comments"}
       </button>
       {/* {show ? (
