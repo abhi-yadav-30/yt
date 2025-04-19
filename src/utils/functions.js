@@ -49,8 +49,8 @@ export const handleShare = async (title, videoId) => {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: "Check this out!",
-        text: "video from my-YouTube - " + title,
+        // title: "Check this out!",
+        text: "Check this out! \n video from abhinandan's YouTube app : " + title,
         url:
           "https://my-youtube-abhinandan-yadav.vercel.app/watch?v=" + videoId,
       });
