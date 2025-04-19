@@ -3,7 +3,7 @@ const ShortsCard = ({ data, isVisible,isMobile }) => {
     <div className="  h-full mr-4  overflow-hidden mb-6 w-full">
       {isVisible ? (
         <iframe
-          src={`https://www.youtube.com/embed/${data.id}?autoplay=1&controls=0&rel=0&showinfo=0&mute=1`}
+          src={`https://www.youtube.com/embed/${data.id}?autoplay=1&controls=0&rel=0&showinfo=0`}
           title="YouTube Shorts"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
