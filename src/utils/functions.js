@@ -51,7 +51,8 @@ export const handleShare = async (title, videoId) => {
       await navigator.share({
         title: "Check this out!",
         text: "video from my-YouTube - " + title,
-        url: "https://www.youtube.com/watch?v=" + videoId,
+        url:
+          "https://my-youtube-abhinandan-yadav.vercel.app/watch?v=" + videoId,
       });
     } catch (err) {
       console.error("Error sharing:", err);
