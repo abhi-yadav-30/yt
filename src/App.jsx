@@ -14,6 +14,8 @@ import YourCourses from "./components/YourCourses";
 import WatchLater from "./components/WatchLater";
 import PlayList from "./components/PlayList";
 import WatchComponent from "./components/WatchComponent";
+import { requestFirebaseNotificationPermission } from "./utils/firebaseConfig/notificationManager";
+import { useEffect } from "react";
 
 const appRouter = createBrowserRouter([
   {
@@ -101,6 +103,9 @@ const appRouter = createBrowserRouter([
 ]);
 
 function App() {
+  useEffect(() => {
+    requestFirebaseNotificationPermission();
+  }, []);
   return (
     <div className="">
       <Provider store={store}>

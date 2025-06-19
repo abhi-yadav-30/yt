@@ -4,13 +4,15 @@ import "./index.css";
 import App from "./App.jsx";
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .then((reg) => console.log("SW registered:", reg))
-      .catch((err) => console.error("SW registration failed:", err));
-  });
+  navigator.serviceWorker
+    .register("/firebase-messaging-sw.js")
+    .then((reg) => console.log("✅ Service Worker registered:", reg))
+    .catch((err) =>
+      console.error("❌ Service Worker registration failed:", err)
+    );
 }
+
+
 
 
 const originalWarn = console.warn;
