@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
 import Head from "./Head";
 import { toggleMenu } from "../utils/appSlice";
+// import AutoFirebaseLogin from "./Atlogin";
 
 const Body = () => {
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
@@ -21,6 +22,7 @@ const Body = () => {
     <div className="h-screen flex flex-col w-screen">
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 h-14 bg-white shadow">
+       {/* <AutoFirebaseLogin/> */}
         <Head />
       </div>
 

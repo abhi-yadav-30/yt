@@ -7,7 +7,7 @@ export const OFFSET_LIVE_CHAT = 50;
 
 export const YOUTUBE_BASE_URL = `https://youtube.googleapis.com/youtube/v3/videos?part=statistics,snippet&key=${API_KEY}`;
 export const YOUTUBE_VIDEOS_API =
-  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=IN&maxResults=50&key=" +
+  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=IN&maxResults=15&key=" +
   API_KEY;
 export const YOUTUBE_CHANNELS_API = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&key=${API_KEY}`;
 export const YOUTUBE_CHANNEL_IMG_API =
@@ -29,7 +29,7 @@ export const getIframUrl = (videoId) => {
 
 export const getComments = async (videoId) => {
   const data = await fetch(
-    `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&order=relevance&videoId=${videoId}&maxResults=40&key=` +
+    `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&order=relevance&videoId=${videoId}&maxResults=20&key=` +
       API_KEY
   );
   const json = await data.json();
@@ -38,7 +38,7 @@ export const getComments = async (videoId) => {
 
 export const searchVideos = async (searchText) => {
   const data = await fetch(
-    `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchText}&key=${API_KEY}`
+    `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=17&q=${searchText}&key=${API_KEY}`
   );
   const searchData = await data.json();
 
@@ -112,7 +112,7 @@ export const fetchShorts = async () => {
   try {
     // Step 1: Search for videos
     const searchResponse = await fetch(
-      `${BASE_URL}/search?part=snippet&type=video&maxResults=50&q=${searchQuery}&key=${API_KEY}`
+      `${BASE_URL}/search?part=snippet&type=video&maxResults=25&q=${searchQuery}&key=${API_KEY}`
     );
     const searchData = await searchResponse.json();
 
